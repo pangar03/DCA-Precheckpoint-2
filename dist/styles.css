@@ -1,0 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* REPLACE THE FONT IN CASE OF USING A DIFFERENT ONE */
+    font-family: "Open Sans", sans-serif;
+    /* REPLACE THE FONT IN CASE OF USING A DIFFERENT ONE */
+}

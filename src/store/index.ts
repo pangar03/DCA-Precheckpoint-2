@@ -1,11 +1,12 @@
 import { reducer } from "./reducer";
 import { AppState, Observer } from "../types/store";
 import TaskList from "../components/taskList/taskList";
+import TaskItem from "../components/taskItem/taskItem";
 
 // The Global State (appState)
 export let appState: AppState = {
-    screen: '',
-    taskList: new TaskList,
+    screen: 'TASKLIST',
+    taskList: [],
 };
 
 let observers: Observer[] = [];

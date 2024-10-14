@@ -1,20 +1,30 @@
 import { reducer } from "./reducer";
 import { AppState, Observer } from "../types/store";
+import storage from "../utils/storage";
 import TaskList from "../components/taskList/taskList";
 import TaskItem from "../components/taskItem/taskItem";
 
-// The Global State (appState)
-export let appState: AppState = {
+const initialState: AppState = {
     screen: 'TASKLIST',
     taskList: [],
 };
 
+// The Global State (appState)
+export let appState = storage.get('STORE', initialState);
+
 let observers: Observer[] = [];
+
+const persistStorage = (state: any) => {
+    storage.set('STORE', state);
+} 
 
 // Dispatch
 export const dispatch = (action: any) => {
     const clone = JSON.parse(JSON.stringify(appState));
-    appState = reducer(action, clone);
+    const newState = reducer(action, clone);
+    appState = newState;
+
+    persistStorage(appState);
     observers.forEach(observer => observer.render());
 };
 

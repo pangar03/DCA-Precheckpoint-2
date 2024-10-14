@@ -1,4 +1,5 @@
 import TaskItem, { TaskAttribute } from "../taskItem/taskItem";
+import '../taskItem/taskItem'
 import { dispatch } from "../../store/index";
 import { addTask, changeScreen } from "../../store/actions";
 import styles from './taskForm.css';
@@ -38,9 +39,6 @@ class TaskForm extends HTMLElement {
 
                 dispatch(addTask(task));
             });
-
-            const cancelButton = this.shadowRoot.querySelector('button')!;
-            cancelButton.addEventListener('click', () => { dispatch(changeScreen('TASKLIST')); });
 
             const cssForm = this.ownerDocument.createElement('style');
             cssForm.innerHTML = styles;

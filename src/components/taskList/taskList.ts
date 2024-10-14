@@ -1,5 +1,7 @@
 import './taskList.css';
 import TaskItem from '../taskItem/taskItem';
+import '../taskItem/taskItem'
+import { addObserver } from '../../store/index';
 import storage from '../../utils/storage';
 import { appState } from '../../store/index';
 
@@ -11,15 +13,20 @@ class TaskList extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        addObserver(this);
     }
 
     getTaskList() {
         this.tasklist = appState.taskList;
 
+        console.log('TASKLIST', this.tasklist);
+        
         const container = this.shadowRoot?.querySelector('.task-list')!;
 
-        this.tasklist.forEach((task) => {
-            container.appendChild(task);
+        this.tasklist?.forEach((task) => {
+            console.log(task);
+            
+            // container.appendChild(task);
         });
     }
 

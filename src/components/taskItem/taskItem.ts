@@ -62,12 +62,6 @@ class TaskItem extends HTMLElement {
             this.shadowRoot.appendChild(cssTaskItem);
         }
     }
-
-    toggleFinished() {
-        this.isfinished = !this.isfinished;
-        console.log(this.isfinished);
-        
-    }
 };
 
 customElements.define('task-item', TaskItem);

@@ -15,13 +15,18 @@ export const reducer = (currentAction: any, currentState: any) => {
         case Actions.REMOVE_TASK:
             return {
                 ...currentState,
-                taskList: currentState.taskList.filter((task: TaskItem) => task.id !== payload.id),
+                taskList: currentState.taskList.filter((task: TaskItem) => task.uid !== payload.uid),
             };
 
         case Actions.TOGGLE_TASK:
             return {
                 ...currentState,
-                taskList: currentState.taskList.map((task: TaskItem) => { task.id === payload.id ? task.toggleFinished() : task }),
+                taskList: currentState.taskList.map((task: TaskItem) => {
+                    if(task.uid === payload.uid){
+                        task.isfinished = !task.isfinished;
+                    }
+                    return task;
+                }),
             }
 
         case Actions.CHANGE_SCREEN:

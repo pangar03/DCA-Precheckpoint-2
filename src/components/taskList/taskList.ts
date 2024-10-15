@@ -1,5 +1,5 @@
 import './taskList.css';
-import TaskItem from '../taskItem/taskItem';
+import TaskItem, {TaskAttribute} from '../taskItem/taskItem';
 import '../taskItem/taskItem'
 import { addObserver } from '../../store/index';
 import storage from '../../utils/storage';
@@ -17,16 +17,19 @@ class TaskList extends HTMLElement {
     }
 
     getTaskList() {
-        this.tasklist = appState.taskList;
-
-        console.log('TASKLIST', this.tasklist);
-        
+        // this.tasklist = appState.taskList;        
         const container = this.shadowRoot?.querySelector('.task-list')!;
 
-        this.tasklist?.forEach((task) => {
+        appState.taskList?.forEach((task: any) => {
             console.log(task);
             
-            // container.appendChild(task);
+            const taskInstance = this.ownerDocument.createElement('task-item') as TaskItem;
+            
+            taskInstance.setAttribute(TaskAttribute.uid, String(task.uid));
+            taskInstance.setAttribute(TaskAttribute.description, String(task.description));
+            taskInstance.setAttribute(TaskAttribute.isfinished, String(task.isfinished));
+            
+            container.appendChild(taskInstance);
         });
     }
 
@@ -38,8 +41,7 @@ class TaskList extends HTMLElement {
     render() {
         if(this.shadowRoot){
             this.shadowRoot.innerHTML = `
-                <section class="task-list">
-                </section>
+                <section class="task-list"></section>
             `;
         }
 

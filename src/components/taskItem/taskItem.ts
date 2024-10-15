@@ -23,7 +23,7 @@ class TaskItem extends HTMLElement {
                 this[propName] = newValue ? Number(newValue) : undefined;
                 break;
             case TaskAttribute.isfinished:
-                this[propName] = newValue ? Boolean(newValue) : undefined;
+                this[propName] = propName === 'isfinished' ? newValue === 'true' : undefined;
                 break;
             default:
                 this[propName] = newValue ? newValue : undefined;
@@ -53,7 +53,9 @@ class TaskItem extends HTMLElement {
             `;
 
             this.shadowRoot.querySelector('.toggle-task')?.addEventListener('click', () => { dispatch(toggleTask(this)); });
-            this.shadowRoot.querySelector('.delete')?.addEventListener('click', () => { dispatch(removeTask(this)); });
+            this.shadowRoot.querySelector('.delete')?.addEventListener('click', () => { 
+                dispatch(removeTask(this)); 
+            });
             
             const cssTaskItem = document.createElement('style');
             cssTaskItem.innerHTML = styles;
@@ -63,6 +65,8 @@ class TaskItem extends HTMLElement {
 
     toggleFinished() {
         this.isfinished = !this.isfinished;
+        console.log(this.isfinished);
+        
     }
 };
 
